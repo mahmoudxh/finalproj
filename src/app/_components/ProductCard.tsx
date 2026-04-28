@@ -1,5 +1,4 @@
 import React from "react";
-import { CiHeart } from "react-icons/ci";
 import { TfiReload } from "react-icons/tfi";
 import { FaEye, FaStar } from "react-icons/fa6";
 import { ProductType } from "../../types/productTypes";
@@ -18,13 +17,13 @@ export default function ProductCard({ product }: ProductTypeProps) {
     <div className="bg-white p-3 rounded-xl border-1 relative">
       <div className="absolute top-4 right-1 gap-2 flex flex-col">
 
-        <AddToWhishlistbtn productId={product.id}/>
+        <AddToWhishlistbtn productId={product._id}/>
 
         <Button className="bg-white shadow-2xl border-1 text-gray-700 h-8 w-8 rounded-full cursor-pointer flex items-center justify-center">
           <TfiReload />
         </Button>
 
-        <Link href={`/Product/${product.id}`} className="bg-white shadow-2xl border-1 text-gray-700 h-8 w-8 rounded-full cursor-pointer flex items-center justify-center">
+        <Link href={`/Product/${product._id}`} className="bg-white shadow-2xl border-1 text-gray-700 h-8 w-8 rounded-full cursor-pointer flex items-center justify-center">
           <FaEye />
         </Link>
 
@@ -59,7 +58,7 @@ export default function ProductCard({ product }: ProductTypeProps) {
         {product.priceAfterDiscount ? (
           <div className="flex items-center gap-2.5">
             <h4 className="text-xl text-emerald-600 font-extrabold mt-3">
-              {product.price} EGP
+              {product.priceAfterDiscount} EGP
             </h4>
             <h4 className="text-sm text-gray-500 line-through font-medium mt-5">
               {product.price} EGP
@@ -68,7 +67,7 @@ export default function ProductCard({ product }: ProductTypeProps) {
         ) : (
           <h4 className="text-xl font-extrabold mt-3">{product.price} EGP</h4>
         )}
-        <AddToCartbtn productId={product.id}/>
+        <AddToCartbtn productId={product._id}/>
       </div>
     </div>
   );
