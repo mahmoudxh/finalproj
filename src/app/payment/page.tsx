@@ -9,12 +9,19 @@ import { createCashOrder, createVisaOrder } from '../_actions/orders.Action'
 import { cartContext } from '../_contexts/CartContextProvider'
 import { toast } from 'sonner'
 
+type PaymentFormValues = {
+    details: string,
+    phone: string,
+    city: string,
+    postalCode: string,
+    type: string,
+}
 
-export default  function page() {
+export default function page() {
 
         const {cartId, setcartItemsNum, settotalPriceOfCart, setcartProducts} = useContext(cartContext)
 
-        const form = useForm( {
+        const form = useForm<PaymentFormValues>({
             defaultValues : {
                 details: "",
                 phone: "",
@@ -24,7 +31,7 @@ export default  function page() {
             }
         })
 
-        async function handlePayment(values){
+        async function handlePayment(values: PaymentFormValues) {
             const userData : shippingAddressType = {
                 shippingAddress : {
                     details : values.details,
@@ -36,9 +43,9 @@ export default  function page() {
 
             if(values.type == "cash"){
                 const cashRes = await createCashOrder(cartId, userData)
-                setcartItemsNum(null)
-                settotalPriceOfCart(null)
-                setcartProducts(null)
+                setcartItemsNum(0)
+                settotalPriceOfCart(0)
+                setcartProducts([])
                 if(cashRes.status == "success"){
                     toast.success(cashRes.message,{
                     position : "top-center"
@@ -91,7 +98,6 @@ export default  function page() {
                             aria-invalid={fieldState.invalid}
                             placeholder="Enter Your Phone"
                             autoComplete="off"
-
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
@@ -109,7 +115,6 @@ export default  function page() {
                             aria-invalid={fieldState.invalid}
                             placeholder="Enter Your City"
                             autoComplete="off"
-
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
@@ -127,7 +132,6 @@ export default  function page() {
                             aria-invalid={fieldState.invalid}
                             placeholder="Enter Your Postal Code"
                             autoComplete="off"
-
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                         </Field>
