@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button'
 import { getProductById } from '@/Services/Products'
 import React from 'react'
@@ -6,10 +5,14 @@ import { FaShoppingCart } from 'react-icons/fa'
 import { FaHeart, FaStar } from 'react-icons/fa6'
 import { MdOutlineElectricBolt } from 'react-icons/md'
 
-export default async function page({params} : Promise<object>) {
+type PageProps = {
+    params: Promise<{ id: string }>
+}
 
-    const myParams = await params
-    const singleProduct = await getProductById(myParams.id)
+export default async function page({ params }: PageProps) {
+
+    const { id } = await params
+    const singleProduct = await getProductById(id)
     
     return (
         <div className='container mx-auto mt-5 md:grid md:grid-cols-4 lg:grid-cols-4 gap-10'>
@@ -44,7 +47,7 @@ export default async function page({params} : Promise<object>) {
                 {singleProduct?.priceAfterDiscount !== undefined ? (
                 <div className="flex items-center gap-2.5">
                     <h4 className="text-3xl text-emerald-600 font-extrabold my-5">
-                    {singleProduct?.price} EGP
+                    {singleProduct?.priceAfterDiscount} EGP
                     </h4>
                     <h4 className="text-xl text-gray-500 line-through font-medium mt-5">
                     {singleProduct?.price} EGP
@@ -61,23 +64,10 @@ export default async function page({params} : Promise<object>) {
                 </div>
 
                 <div className='flex justify-center items-center gap-3'>
-                    <Button className='flex items-center w-10/12 md:w-11/12 text-lg py-4 md:py-6 mt-6 font-medium text-black bg-white border-gray-200 border-1'> <FaHeart /> Add to Whislist</Button>
+                    <Button className='flex items-center w-10/12 md:w-11/12 text-lg py-4 md:py-6 mt-6 font-medium text-black bg-white border-gray-200 border-1'> <FaHeart /> Add to Wishlist</Button>
                     <Button className='flex items-center w-2/12 md:w-1/12 text-lg py-4 md:py-6 mt-6 font-medium text-white'> <MdOutlineElectricBolt /> </Button>
                 </div>
-
-
-
-
-
-
-
-
-
             </div>
-
-            
-
-
         </div>
     )
 }
