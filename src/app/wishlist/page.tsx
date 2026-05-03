@@ -55,7 +55,7 @@ export default function Wishlistpage() {
     <div className='min-h-screen bg-gray-100'>
         {whishlistItems.map(  (item : whishlistItemType) => 
         
-            <div key={item.id} className='flex flex-col p-3 w-8/12 mx-auto  my-3 '>
+            <div key={item._id} className='flex flex-col p-3 w-8/12 mx-auto  my-3 '>
 
                 <div className=" bg-white border-2 border-gray-100 rounded-xl p-5 flex gap-5">
                     
@@ -70,11 +70,11 @@ export default function Wishlistpage() {
                         <p className="text-sm font-semibold text-gray-900"> {item.price} <span className="text-xs font-normal text-gray-400">per unit</span></p>
 
                         <div className="flex items-center gap-3 my-1.5">
-                                <Button className="h-8  bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg flex items-center justify-center w-1/2 cursor-pointer" onClick={ () => handleAddToCartFromWhishlist(item.id) } >
+                                <Button className="h-8  bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg flex items-center justify-center w-1/2 cursor-pointer" onClick={ () => handleAddToCartFromWhishlist(item._id) } >
                                     <FaShoppingCart /> Add to Cart 
                                 </Button>
 
-                                <Button className="h-8 bg-red-50 hover:bg-red-100 rounded-lg flex items-center justify-center w-1/2 cursor-pointer" onClick={ () => handdleDeleteFromWhishlist(item.id) } >
+                                <Button className="h-8 bg-red-50 hover:bg-red-100 rounded-lg flex items-center justify-center w-1/2 cursor-pointer" onClick={ () => handdleDeleteFromWhishlist(item._id) } >
                                     <FaRegTrashAlt className='text-red-600' /> 
                                 </Button>
                         </div>

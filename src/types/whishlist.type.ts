@@ -3,7 +3,7 @@ import { BrandType, CategoryType } from "./productTypes"
 export interface UserWhishlistResType{
     status: string,
     count : number,
-    data  : whishlistItemType
+    data  : whishlistItemType[]
 }
 export interface whishlistItemType{
     brand : BrandType,
@@ -11,5 +11,5 @@ export interface whishlistItemType{
     imageCover : string,
     price : number,
     title : string,
-    id : string
+    _id : string
 }

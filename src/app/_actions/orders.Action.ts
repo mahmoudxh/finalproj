@@ -16,9 +16,11 @@ export async function createCashOrder(cartId : string, shippingAdress : shipping
     const finalRes = await res.json()
     return finalRes
 }
+
 export async function createVisaOrder(cartId : string, shippingAdress : shippingAddressType) {
     const Token = await getmyToken()
-    const res = await fetch(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`,{
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000"
+    const res = await fetch(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${baseUrl}`,{
         method : "POST",    
         headers : {
             token : Token as string,
