@@ -8,6 +8,7 @@ import CartContextProvider from "./_contexts/CartContextProvider";
 import { getLoggedUser } from "./_actions/cart.Action";
 import { getLoggedUserWhishlist } from "./_actions/whishlist.Actions";
 import { UserWhishlistResType } from "@/types/whishlist.type";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 
@@ -48,6 +49,7 @@ export default async function RootLayout({
           <Toaster/>
           <Navbar/>
           {children}
+          <SpeedInsights/>
         </>
 
       </CartContextProvider>
