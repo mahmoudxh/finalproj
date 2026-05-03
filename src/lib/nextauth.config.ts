@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from "next-auth"
+import type { NextAuthOptions, User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 
@@ -12,7 +12,7 @@ export const nextAuthConfig : NextAuthOptions = {
             password: {}
             },
 
-            async authorize(credentials){
+            async authorize(credentials) : Promise<User | null> {
                 try {
                     const res = await fetch ("https://ecommerce.routemisr.com/api/v1/auth/signin",{
                     body : JSON.stringify(credentials),
@@ -26,13 +26,17 @@ export const nextAuthConfig : NextAuthOptions = {
                 
                 if(finalRes.message === "success"){
                     return {
+                        id: finalRes.user._id,
                         name : finalRes.user.name,
                         email : finalRes.user.email,
                         realTokenFromBackend : finalRes.token
                     }
                 }
+
+                return null
                 
                 } catch (error) {
+                    console.log(error)
                     return null
                 }
             },
@@ -51,7 +55,7 @@ export const nextAuthConfig : NextAuthOptions = {
             return params.token
         },
         session(params) {
-            return params.session   //don't return the token
+            return params.session
         },
     },
     session : {
